@@ -7,6 +7,6 @@ A program to organize and structurize the PatientFlow for bigger scenarios
 * You are able to change the triage category of a patient in the frontend
 * You can print the patientnumber to any connected printer
 * You can assign rooms and personnel to a patient
-* You can fill out an protocol formfor a patient
+* You can fill out an protocol form for a patient
 * You can login
 * You have an audit trail for all changes
