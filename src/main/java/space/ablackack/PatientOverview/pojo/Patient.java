@@ -5,22 +5,36 @@ import space.ablackack.PatientOverview.enums.TriageCatEnm;
 
 public class Patient {
 
-  private final String patientId;
+  private final String patientNumber;
   private String name;
   private StatusEnm status;
   private TriageCatEnm category;
 
-  public Patient(String patientId) {
-    this.patientId = patientId;
+  public Patient(String patientNumber) {
+    this(patientNumber, "Anonymous", StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
   }
 
-  public Patient(String patientId, String name) {
-    this.patientId = patientId;
+  public Patient(String patientNumber, String name) {
+    this(patientNumber, name, StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
+  }
+
+  public Patient(String patientNumber, String name, StatusEnm status, TriageCatEnm category) {
+    this.patientNumber = patientNumber;
     this.setName(name);
+    this.setStatus(status);
+    this.setCategory(category);
   }
 
-  public String getPatientId() {
-    return patientId;
+  public Patient(String patientNumber, String name, StatusEnm status) {
+    this(patientNumber, name, status, TriageCatEnm.INVALID_VALUE);
+  }
+
+  public Patient(String patientNumber, String name, TriageCatEnm category) {
+    this(patientNumber, name, StatusEnm.INVALID_VALUE, category);
+  }
+
+  public String getPatientNumber() {
+    return patientNumber;
   }
 
   public String getName() {

@@ -5,15 +5,25 @@ public enum TriageCatEnm {
   YELLOW("CAT II / SK 2"),
   GREEN("CAT III / SK 3"),
   BLUE("CAT IV / SK 4"),
-  BLACK("EX");
+  BLACK("EX"),
+  INVALID_VALUE("Value is invalid or not set");
 
-  private final String name;
+  private final String displayValue;
 
-  TriageCatEnm(String name) {
-    this.name = name;
+  TriageCatEnm(String displayValue) {
+    this.displayValue = displayValue;
   }
 
-  public String getName() {
-    return this.name;
+  public static TriageCatEnm fromString(String text) {
+    for (TriageCatEnm cat : TriageCatEnm.values()) {
+      if (cat.getDisplayValue().equalsIgnoreCase(text)) {
+        return cat;
+      }
+    }
+    return null;
+  }
+
+  public String getDisplayValue() {
+    return this.displayValue;
   }
 }

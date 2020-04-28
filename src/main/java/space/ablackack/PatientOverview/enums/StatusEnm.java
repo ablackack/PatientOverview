@@ -1,18 +1,29 @@
 package space.ablackack.PatientOverview.enums;
 
 public enum StatusEnm {
-  DISCHARGED("discharged"),
-  HOSPITAL("hospital"),
-  AGAINST_MEDICAL_ADVICE("left against medical advice"),
-  UNDER_TREATMENT("under treatment");
+  DISCHARGED("Discharged"),
+  HOSPITAL("In hospital"),
+  AGAINST_MEDICAL_ADVICE("Left against medical advice"),
+  UNDER_TREATMENT("Under treatment"),
+  INVALID_VALUE("Value is invalid or not set");
 
-  private final String name;
+  private final String displayValue;
 
-  StatusEnm(String name) {
-    this.name = name;
+  StatusEnm(String displayValue) {
+    this.displayValue = displayValue;
   }
 
-  public String getName() {
-    return name;
+  public static StatusEnm fromString(String text) {
+    for (StatusEnm status : StatusEnm.values()) {
+      if (status.getDisplayValue().equalsIgnoreCase(text)) {
+        return status;
+      }
+    }
+    return null;
   }
+
+  public String getDisplayValue() {
+    return displayValue;
+  }
+
 }
