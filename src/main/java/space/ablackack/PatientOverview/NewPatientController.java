@@ -9,17 +9,18 @@ import space.ablackack.PatientOverview.pojo.Patient;
 import space.ablackack.PatientOverview.utils.DatabaseUtils;
 
 @Controller
-public class PatientOverviewController {
+public class NewPatientController {
+    @GetMapping("/newPatient")
+    public String newPatientForm(Model model) {
+        model.addAttribute("patient", DatabaseUtils.getLatestPatient());
 
-  @GetMapping("/patientOverview")
-  public String patientOverview(Model model) {
-    model.addAttribute("patients", DatabaseUtils.getAllPatients());
+        return "newPatient";
+    }
 
-    return "patientOverview";
-  }
+    @PostMapping("/newPatient")
+    public String newPatientSubmit(@ModelAttribute Patient patient) {
+        DatabaseUtils.savePatient(patient);
 
-  @PostMapping("/patientOverview")
-  public String savePatient(@ModelAttribute("patient") Patient patient) {
-    return "patientOverview";
-  }
+        return "newPatient";
+    }
 }

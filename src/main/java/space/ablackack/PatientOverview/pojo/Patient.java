@@ -3,61 +3,72 @@ package space.ablackack.PatientOverview.pojo;
 import space.ablackack.PatientOverview.enums.StatusEnm;
 import space.ablackack.PatientOverview.enums.TriageCatEnm;
 
-public class Patient {
+import java.io.Serializable;
 
-  private final String patientNumber;
-  private String name;
-  private StatusEnm status;
-  private TriageCatEnm category;
+public class Patient implements Serializable {
 
-  public Patient(String patientNumber) {
-    this(patientNumber, "Anonymous", StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
-  }
+    private String patientNumber;
+    private String name;
+    private StatusEnm status;
+    private TriageCatEnm category;
 
-  public Patient(String patientNumber, String name) {
-    this(patientNumber, name, StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
-  }
+    // default constructor
+    public Patient() {
 
-  public Patient(String patientNumber, String name, StatusEnm status, TriageCatEnm category) {
-    this.patientNumber = patientNumber;
-    this.setName(name);
-    this.setStatus(status);
-    this.setCategory(category);
-  }
+    }
 
-  public Patient(String patientNumber, String name, StatusEnm status) {
-    this(patientNumber, name, status, TriageCatEnm.INVALID_VALUE);
-  }
+    public Patient(String patientNumber) {
+        this(patientNumber, "Anonymous", StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
+    }
 
-  public Patient(String patientNumber, String name, TriageCatEnm category) {
-    this(patientNumber, name, StatusEnm.INVALID_VALUE, category);
-  }
+    public Patient(String patientNumber, String name) {
+        this(patientNumber, name, StatusEnm.INVALID_VALUE, TriageCatEnm.INVALID_VALUE);
+    }
 
-  public String getPatientNumber() {
-    return patientNumber;
-  }
+    public Patient(String patientNumber, String name, StatusEnm status, TriageCatEnm category) {
+        this.patientNumber = patientNumber;
+        this.setName(name);
+        this.setStatus(status);
+        this.setCategory(category);
+    }
 
-  public String getName() {
-    return name;
-  }
+    public Patient(String patientNumber, String name, StatusEnm status) {
+        this(patientNumber, name, status, TriageCatEnm.INVALID_VALUE);
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public Patient(String patientNumber, String name, TriageCatEnm category) {
+        this(patientNumber, name, StatusEnm.INVALID_VALUE, category);
+    }
 
-  public StatusEnm getStatus() {
-    return status;
-  }
+    public String getPatientNumber() {
+        return patientNumber;
+    }
 
-  public void setStatus(StatusEnm status) {
-    this.status = status;
-  }
+    public void setPatientNumber(String patientNumber) {
+        this.patientNumber = patientNumber;
+    }
 
-  public TriageCatEnm getCategory() {
-    return category;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setCategory(TriageCatEnm category) {
-    this.category = category;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public StatusEnm getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnm status) {
+        this.status = status;
+    }
+
+    public TriageCatEnm getCategory() {
+        return category;
+    }
+
+    public void setCategory(TriageCatEnm category) {
+        this.category = category;
+    }
 }
