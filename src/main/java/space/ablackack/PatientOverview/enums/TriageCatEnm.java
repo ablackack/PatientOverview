@@ -23,6 +23,10 @@ public enum TriageCatEnm {
     return null;
   }
 
+  public String getAsString() {
+    return this.toString();
+  }
+
   public String getDisplayValue() {
     return this.displayValue;
   }

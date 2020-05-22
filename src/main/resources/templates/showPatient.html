@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: default (pageTitle='Show patient: ' + ${patient.patientNumber})">
+
+</head>
+<body>
+<h1 th:text="${patient.patientNumber} + ': ' + ${patient.name}"></h1>
+<p style="font-size: 2rem;">Severity: <th:block th:replace="fragments/triage :: color (triage=${patient.category})">Category</th:block></p>
+<p th:text="'Current status: ' + ${patient.status.displayValue}"></p>
+</body>
+</html>

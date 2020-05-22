@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import space.ablackack.PatientOverview.enums.StatusEnm;
 import space.ablackack.PatientOverview.pojo.Patient;
 import space.ablackack.PatientOverview.utils.DatabaseUtils;
 
@@ -19,6 +20,7 @@ public class NewPatientController {
 
     @PostMapping("/newPatient")
     public String newPatientSubmit(@ModelAttribute Patient patient) {
+        patient.setStatus(StatusEnm.UNDER_TREATMENT);
         DatabaseUtils.savePatient(patient);
 
         return "newPatient";

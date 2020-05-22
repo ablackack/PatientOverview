@@ -1,0 +1,8 @@
+<th:block th:fragment="color" th:switch="${triage.getAsString()}" xmlns:th="http://www.w3.org/1999/xhtml">
+        <span th:case="'RED'" class="bg-danger text-white" th:text="${triage.displayValue}">TriageCat</span>
+        <span th:case="'YELLOW'" class="bg-warning" th:text="${triage.displayValue}">TriageCat</span>
+        <span th:case="'GREEN'" class="bg-success text-white" th:text="${triage.displayValue}">TriageCat</span>
+        <span th:case="'BLUE'" class="bg-primary text-white" th:text="${triage.displayValue}">TriageCat</span>
+        <span th:case="'BLACK'" class="bg-dark text-white" th:text="${triage.displayValue}">TriageCat</span>
+        <span th:case="*" th:text="'ERROR: ' + ${triage}">TriageCat</span>
+</th:block>

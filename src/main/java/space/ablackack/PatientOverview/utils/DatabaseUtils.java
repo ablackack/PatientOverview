@@ -89,19 +89,17 @@ public class DatabaseUtils {
         return patientList;
     }
 
-    public static Patient getPatient(String patientNumber) throws ClassNotFoundException {
+    public static Patient getPatient(String patientNumber) {
         PreparedStatement statement;
         ResultSet resultSet = null;
-        Patient result = null;
+        Patient patient = new Patient();
 
         try {
-            statement = getConnection().prepareStatement("SELECT * FROM patient WHERE patient_number = \"?\"");
+            statement = getConnection().prepareStatement("SELECT * FROM patient WHERE patient_number = ?");
             statement.setString(1, patientNumber);
             resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Patient patient = null;
-
                 String resultpatientNumber = resultSet.getString("patient_number");
                 String name = resultSet.getString("name");
                 String status = resultSet.getString("status");
@@ -110,20 +108,17 @@ public class DatabaseUtils {
                 StatusEnm statusEnm = StatusEnm.fromString(status);
                 TriageCatEnm triageCatEnm = TriageCatEnm.fromString(category);
 
-                if (resultpatientNumber != null && name != null && statusEnm != null && triageCatEnm != null) {
-                    patient = new Patient(resultpatientNumber, name, statusEnm, triageCatEnm);
-                } else if (resultpatientNumber != null && name != null && statusEnm != null) {
-                    patient = new Patient(resultpatientNumber, name, statusEnm);
-                } else if (resultpatientNumber != null && name != null && triageCatEnm != null) {
-                    patient = new Patient(resultpatientNumber, name, triageCatEnm);
-                } else if (resultpatientNumber != null && name != null) {
-                    patient = new Patient(resultpatientNumber, name);
-                } else if (resultpatientNumber != null) {
-                    patient = new Patient(resultpatientNumber);
+                if (resultpatientNumber!= null) {
+                    patient.setPatientNumber(resultpatientNumber);
                 }
-
-                if (patient != null) {
-                    result = patient;
+                if (name != null) {
+                    patient.setName(name);
+                }
+                if (statusEnm != null) {
+                    patient.setStatus(statusEnm);
+                }
+                if (triageCatEnm != null) {
+                    patient.setCategory(triageCatEnm);
                 }
             }
         } catch (SQLException ex) {
@@ -131,6 +126,8 @@ public class DatabaseUtils {
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
 
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             if (resultSet != null) {
                 try {
@@ -139,7 +136,7 @@ public class DatabaseUtils {
                 }
             }
         }
-        return result;
+        return patient;
     }
 
     public static void savePatient(Patient patient) {
