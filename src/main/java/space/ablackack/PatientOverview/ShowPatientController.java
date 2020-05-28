@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import space.ablackack.PatientOverview.pojo.Patient;
 import space.ablackack.PatientOverview.utils.DatabaseUtils;
 
-import javax.xml.crypto.Data;
-
 @Controller
 public class ShowPatientController {
     @RequestMapping("/showPatient")

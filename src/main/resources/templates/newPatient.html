@@ -6,7 +6,6 @@
 
 <h1>Form</h1>
 <form action="#" th:action="@{newPatient}" th:object="${patient}" method="post">
-    <p>Patient number: <input type="text" th:field="*{patientNumber}"></p>
     <p>Name: <input type="text" th:field="*{name}"></p>
     <p>Triage: <select name="category">
         <option th:each="triageOpt : ${T(space.ablackack.PatientOverview.enums.TriageCatEnm).values()}"

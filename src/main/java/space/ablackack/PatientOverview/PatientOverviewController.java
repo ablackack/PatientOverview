@@ -17,9 +17,4 @@ public class PatientOverviewController {
 
     return "patientOverview";
   }
-
-  @PostMapping("/patientOverview")
-  public String savePatient(@ModelAttribute("patient") Patient patient) {
-    return "patientOverview";
-  }
 }

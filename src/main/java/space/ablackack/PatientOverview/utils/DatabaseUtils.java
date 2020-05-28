@@ -215,4 +215,100 @@ public class DatabaseUtils {
         }
         return result;
     }
+
+    public static Integer getNumberOfTodaysPatients() {
+        PreparedStatement statement;
+        ResultSet resultSet = null;
+        int result = 0;
+
+        try {
+            statement = getConnection().prepareStatement("SELECT count(*) FROM patient WHERE patient_number LIKE ?");
+            statement.setString(1, OverviewUtils.getTodaysDay().toString() + "%");
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                result = resultSet.getInt(1);
+            }
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ignored) {
+                }
+            }
+        }
+        return result;
+    }
+
+    public static List<Patient> getAllPatientsWithCategory(String triageCat) {
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<Patient> patientList = new ArrayList<>();
+        TriageCatEnm triageCatFilterEnm = TriageCatEnm.fromValueString(triageCat);
+
+        try {
+            statement = getConnection().prepareStatement("SELECT * FROM patient WHERE triage_category LIKE ? ORDER BY idpatient DESC");
+            statement.setString(1, triageCatFilterEnm.getDisplayValue());
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                Patient patient = null;
+
+                String patientNumber = resultSet.getString("patient_number");
+                String name = resultSet.getString("name");
+                String resultStatus = resultSet.getString("status");
+                String category = resultSet.getString("triage_category");
+
+                StatusEnm resultStatusEnm = StatusEnm.fromString(resultStatus);
+                TriageCatEnm triageCatEnm = TriageCatEnm.fromString(category);
+
+                if (patientNumber != null && name != null && resultStatusEnm != null && triageCatEnm != null) {
+                    patient = new Patient(patientNumber, name, resultStatusEnm, triageCatEnm);
+                } else if (patientNumber != null && name != null && resultStatusEnm != null) {
+                    patient = new Patient(patientNumber, name, resultStatusEnm);
+                } else if (patientNumber != null && name != null && triageCatEnm != null) {
+                    patient = new Patient(patientNumber, name, triageCatEnm);
+                } else if (patientNumber != null && name != null) {
+                    patient = new Patient(patientNumber, name);
+                } else if (patientNumber != null) {
+                    patient = new Patient(patientNumber);
+                }
+
+                if (patient != null) {
+                    patientList.add(patient);
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException ignored) {
+                }
+            }
+
+            if (statement != null) {
+                try {
+                    statement.close();
+                } catch (SQLException ignored) {
+                }
+            }
+        }
+
+        return patientList;
+    }
 }

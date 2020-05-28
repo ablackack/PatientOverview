@@ -12,7 +12,6 @@ public class Patient implements Serializable {
     private StatusEnm status;
     private TriageCatEnm category;
 
-    // default constructor
     public Patient() {
 
     }

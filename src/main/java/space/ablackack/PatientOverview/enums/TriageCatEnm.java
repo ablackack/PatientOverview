@@ -23,6 +23,17 @@ public enum TriageCatEnm {
     return null;
   }
 
+  public static TriageCatEnm fromValueString(String string) {
+    if (string != null) {
+      try {
+        return TriageCatEnm.valueOf(string.trim().toUpperCase());
+      } catch (IllegalArgumentException e) {
+        e.printStackTrace();
+      }
+    }
+    return null;
+  }
+
   public String getAsString() {
     return this.toString();
   }
