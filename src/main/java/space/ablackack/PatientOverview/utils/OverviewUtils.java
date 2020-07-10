@@ -1,5 +1,7 @@
 package space.ablackack.PatientOverview.utils;
 
+import space.ablackack.PatientOverview.utils.database.PatientDatabaseUtils;
+
 import java.time.LocalDateTime;
 
 public class OverviewUtils {
@@ -12,7 +14,7 @@ public class OverviewUtils {
     public static String getNextPatientNumber() {
         StringBuilder patientNumber = new StringBuilder();
         String day = OverviewUtils.getTodaysDay().toString();
-        String number = String.valueOf(DatabaseUtils.getNumberOfTodaysPatients() + 1);
+        String number = String.valueOf(PatientDatabaseUtils.getNumberOfTodaysPatients() + 1);
 
         if (day.length() < 2) day = "0" + day;
         switch (number.length()) {
